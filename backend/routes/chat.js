@@ -1,5 +1,6 @@
 import express from "express";
 import Thread from "../models/Thread.js";
+import getGroqResponse from "../utils/groq.js";
 
 const router = express.Router();
 
@@ -89,6 +90,49 @@ router.delete("/thread/:threadId",async(req,res)=>{
         })
     }
 });
+
+
+
+
+router.post("/chat",async(req,res)=>{
+
+    const {threadId,message}=req.body;
+
+    if(!threadId || !message){
+        res.status(400).json({error:"Missing required fields"});
+    }
+
+    try{
+        const thread = await Thread.findOne({threadId});
+
+        if(!thread){
+            //create new thread in DB
+            thread = new Thread({
+                threadId,
+                title: message,
+                messages:[{role:"user",content:message}]
+            });
+        }
+        else{
+            thread.messages.push({role:"user",content:message})
+        }
+
+        const assistantReply = await getGroqResponse(message);
+
+        thread.messages.push({role:"assistant",content:assistantReply});
+        thread.updatedAt =new Date();
+
+        await thread.save();
+        res.json({reply:assistantReply});
+    }
+     catch(err){
+        console.log(err);
+        res.status(500).json({error:"Something went wrong"});
+    }
+})
+
+
+
 
 
 export default router;
