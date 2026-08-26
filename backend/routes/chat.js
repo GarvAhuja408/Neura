@@ -49,7 +49,7 @@ router.get("/thread/:threadId",async(req,res)=>{
         const thread = await Thread.findOne({threadId});
 
         if(!thread){
-            res.status(404).json({
+            return res.status(404).json({
             error:"Thread not found"
         })
         }   
@@ -70,10 +70,10 @@ router.delete("/thread/:threadId",async(req,res)=>{
     const {threadId}=req.params;
 
     try{
-        const deletedThread = await Thread.findOneAndDelete(threadId);
+        const deletedThread = await Thread.findOneAndDelete({threadId});
         
-        if(!thread){
-            res.status(404).json({
+        if(!deletedThread){
+            return res.status(404).json({
             error:"Thread not found"
         })
         }
@@ -99,11 +99,11 @@ router.post("/chat",async(req,res)=>{
     const {threadId,message}=req.body;
 
     if(!threadId || !message){
-        res.status(400).json({error:"Missing required fields"});
+        return res.status(400).json({error:"Missing required fields"});
     }
 
     try{
-        const thread = await Thread.findOne({threadId});
+        let thread = await Thread.findOne({threadId});
 
         if(!thread){
             //create new thread in DB
