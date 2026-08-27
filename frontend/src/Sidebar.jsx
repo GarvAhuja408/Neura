@@ -5,15 +5,15 @@ function Sidebar(){
         <section className="sidebar">
             
             <button>
-                <img src="src/assets/blacklogo.png" alt="gpt logo"></img>
-                <i className="fa-solid fa-pen-to-square"></i>
+                <img src="src/assets/blacklogo.png" alt="gpt logo" className="logo"></img>
+                <span><i className="fa-solid fa-pen-to-square"></i></span>
             </button>
 
             <ul className="history">
-                <li>history 1</li>
-                <li>history 1</li>
-                <li>history 1</li>
-                <li>history 1</li>
+                <li>Thread 1</li>
+                <li>Thread 2</li>
+                <li>Thread 3</li>
+                <li>Thread 4</li>
             </ul>
 
             <div className="sign">
