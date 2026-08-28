@@ -8,7 +8,7 @@ function ChatWindow(){
             <div className="navbar">
                 <span>Neura <i class="fa-solid fa-chevron-down"></i></span>
                 <div className="userIconDiv">
-                    <span><i class="fa-solid fa-user"></i></span>
+                    <span className="userIcon"><i class="fa-solid fa-user"></i></span>
                 </div>
             </div>
 
@@ -16,17 +16,21 @@ function ChatWindow(){
 
             <div className="chatInput">
 
-                <div className="userInput">
+                <div className="inputBox">
 
                     <input placeholder="Ask Anything">
                     </input>
+                    &nbsp;&nbsp;
                     <div id="submit">
                         <i class="fa-solid fa-paper-plane"></i>
                     </div>
                 </div>
+
+                <div>
                 <p className="info">
-                    AI can make mistakes. Check important info. See cookie preferences
+                    Neura AI can make mistakes. Check important info. See cookie preferences
                 </p>
+                </div>
 
             </div>
 
