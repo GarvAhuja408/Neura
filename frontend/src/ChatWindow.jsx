@@ -1,14 +1,19 @@
 import "./ChatWindow.css";
 import Chat from "./Chat.jsx";
 import { MyContext } from "./MyContext.jsx";
-import { useContext } from "react";
-
+import { useContext, useState } from "react";
+import {DotLoader} from "react-spinners"
 
 function ChatWindow(){
 
     const {prompt,setPrompt,reply,setReply,currThreadId}=useContext(MyContext);
+    const [loading,setLoading]=useState(false);
+
 
     const getReply = async()=>{
+
+        setLoading(true);
+
         const options = {
             method: "POST",
             headers: {
@@ -29,6 +34,7 @@ function ChatWindow(){
     catch(err){
         console.log(err);
     }
+    setLoading(false);
 }
     
 
@@ -43,6 +49,8 @@ function ChatWindow(){
             </div>
 
             <Chat/>
+
+            <DotLoader color="#ffff" loading={loading} />
 
             <div className="chatInput">
 
