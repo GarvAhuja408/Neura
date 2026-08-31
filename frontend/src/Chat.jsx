@@ -2,6 +2,11 @@ import "./Chat.css";
 import { useContext } from "react";
 import { MyContext } from "./MyContext";
 
+import Markdown from 'react-markdown'
+import rehypeHighlight from 'rehype-highlight'
+import "highlight.js/styles/github-dark.css";
+
+
 function Chat(){
 
     const{newChat,prevChats} = useContext(MyContext);
@@ -14,7 +19,11 @@ function Chat(){
                 prevChats?.map((chat,idx)=>
                     <div className={chat.role==="user"? "userDiv" :"gptDiv"} key={idx}>
                         {
-                            chat.role==="user"? <p className="userMessage"> {chat.content}</p>:<p className="gptMessage">{chat.content}</p>
+                            chat.role==="user"? 
+                            <p className="userMessage"> {chat.content}</p>:
+                            <Markdown rehypePlugins={[rehypeHighlight]}>
+                                        {chat.content}
+                                    </Markdown>
                         }
                     </div>
                 )
