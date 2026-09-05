@@ -13,6 +13,11 @@ function Chat(){
     const [latestReply,setLatestReply]=useState(null);
 
     useEffect( ()=>{
+
+        if(reply === null){
+            setLatestReply(null);
+            return;
+        }
         if(!prevChats?.length)return ;
 
         const content=reply.split(" ");
@@ -47,14 +52,25 @@ function Chat(){
                     </div>
                 )
             }
+
             {
-                prevChats.length>0&&latestReply!=null&&
+                prevChats.length>0&&latestReply!==null&&
                 <div className="gptDiv" key={"typing"}>
                     <Markdown rehypePlugins={[rehypeHighlight]}>
                                         {latestReply}
                                     </Markdown>
                 </div>
+            }
+
+            {
+                prevChats.length>0&&latestReply===null&&
+                <div className="gptDiv" key={"nontyping"}>
+                    <Markdown rehypePlugins={[rehypeHighlight]}>
+                                        {prevChats[prevChats.length-1].content}
+                                    </Markdown>
+                </div>
             }   
+
         </div>
         </>
     )
