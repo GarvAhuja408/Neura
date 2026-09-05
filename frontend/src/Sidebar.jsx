@@ -78,7 +78,7 @@ function Sidebar(){
             <ul className="history">
                 {
                     allThreads?.map( (thread,idx)=>(
-                        <li key={idx} onClick={ (e)=> changeThread(thread.threadId)}>{thread.title} <i class="fa-solid fa-trash" onClick={ (e)=>{ e.stopPropagation(); deleteThread(thread.threadId)}}></i></li>
+                        <li key={idx} onClick={ (e)=> changeThread(thread.threadId)} className={thread.threadId===currThreadId?"highlighted":" "}>{thread.title} <i class="fa-solid fa-trash" onClick={ (e)=>{ e.stopPropagation(); deleteThread(thread.threadId)}}></i></li>
                     ))
                 }
             </ul>
